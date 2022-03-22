@@ -1,0 +1,1 @@
+INSERT INTO user (id, email, password, firstname, lastname, role, timestamp) VALUES (10001, 'admin1@genspark.net', 'New2022Year', 'Jane', 'Doe', 'ADMIN', sysdate());
