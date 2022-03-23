@@ -12,5 +12,5 @@ public interface UserService {
     User update(User user);
     void delete(Long id);
     boolean validatePassword(User user,String password);
-    void assignToken(User user);
+    User logOut(User user);
 }

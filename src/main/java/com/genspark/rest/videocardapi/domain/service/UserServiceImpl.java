@@ -1,12 +1,15 @@
 package com.genspark.rest.videocardapi.domain.service;
 
+import com.genspark.rest.videocardapi.domain.entity.AccessToken;
 import com.genspark.rest.videocardapi.domain.entity.User;
+import com.genspark.rest.videocardapi.domain.repository.AccessTokenRepository;
 import com.genspark.rest.videocardapi.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.Access;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AccessTokenRepository tokenRepository;
 
     @Override
     public List<User> get() {
@@ -65,11 +70,17 @@ public class UserServiceImpl implements UserService {
         {
             return false;
         }
+        AccessToken accessToken=new AccessToken();
+        accessToken.setValue("testAccess");
+        accessToken.setUser(user);
+        tokenRepository.save(accessToken);
+        userRepository.save(user);
         return true;
     }
 
     @Override
-    public void assignToken(User user) {
-
+    public User logOut(User user) {
+        user.getAccessTokens().clear();
+        return userRepository.save(user);
     }
 }

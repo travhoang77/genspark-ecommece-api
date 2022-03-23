@@ -1,5 +1,7 @@
 package com.genspark.rest.videocardapi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -9,7 +11,10 @@ public class AccessToken {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user", nullable = false)
     private User user;
 
     @NotNull
@@ -25,7 +30,6 @@ public class AccessToken {
     public void setId(Long id) {
         this.id = id;
     }
-
     public User getUser() {
         return user;
     }

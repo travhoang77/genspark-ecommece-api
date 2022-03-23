@@ -2,6 +2,7 @@ package com.genspark.rest.videocardapi.domain.controller;
 
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.genspark.rest.videocardapi.domain.entity.AccessToken;
 import com.genspark.rest.videocardapi.domain.entity.User;
 import com.genspark.rest.videocardapi.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,11 @@ public class UserController {
         {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "incorrect password");
         }
+    }
+    @PostMapping("/logOutUser")
+    public User logOut(@RequestBody User userToLogOut)
+    {
+        return userService.logOut(userToLogOut);
     }
 
 
