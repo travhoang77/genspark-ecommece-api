@@ -5,7 +5,10 @@ import com.genspark.rest.videocardapi.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,27 +23,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User find(Long id) {
-        return null;
+        Optional<User> u = userRepository.findById(id);
+        User user = null;
+        if (u.isPresent()) {
+            user = u.get();
+        } else {
+            throw new RuntimeException(" User not found for id : " + id);
+        }
+        return user;
     }
 
     @Override
     public User create(User user) {
-        return null;
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        user.setTimestamp(timestamp);
+        return userRepository.save(user);
     }
 
     @Override
     public User findBy(String email) {
-        return null;
+        return userRepository.findByEmail(email);
     }
 
     @Override
-    public User update(Long id, User user) {
-        return null;
+    public User update(User user) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        user.setTimestamp(timestamp);
+        return userRepository.save(user);
     }
 
     @Override
-    public User delete(Long id) {
-        return null;
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override
