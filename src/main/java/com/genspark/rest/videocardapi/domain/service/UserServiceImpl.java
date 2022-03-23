@@ -3,7 +3,9 @@ package com.genspark.rest.videocardapi.domain.service;
 import com.genspark.rest.videocardapi.domain.entity.User;
 import com.genspark.rest.videocardapi.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -55,6 +57,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean validatePassword(User user,String password) {
+        if(!user.getPassword().equals(password))
+        {
+            return false;
+        }
+        return true;
     }
 
     @Override

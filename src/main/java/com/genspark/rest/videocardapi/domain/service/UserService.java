@@ -11,5 +11,6 @@ public interface UserService {
     User findBy(String email);
     User update(User user);
     void delete(Long id);
+    boolean validatePassword(User user,String password);
     void assignToken(User user);
 }
