@@ -1,5 +1,7 @@
 package com.genspark.rest.videocardapi.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -44,6 +46,7 @@ public class Product {
     @Min(0)
     private double price = 0.00;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages;
 
